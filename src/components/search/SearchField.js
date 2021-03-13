@@ -57,7 +57,6 @@ function SearchField() {
 
         if (page && owner && repository)
         {
-            console.log(page, owner, repository)
             dispatch(getForks({ owner, repoName: repository, page }))
             
         }
