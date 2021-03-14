@@ -11,8 +11,8 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(cors());
 
-const buildPath = path.join(__dirname, '..', 'build');
-app.use(express.static(buildPath));
+/* const buildPath = path.join(__dirname, '..', 'build');
+app.use(express.static(buildPath)); */
 
 // routes
 app.get("/forks", (req, res) => {
