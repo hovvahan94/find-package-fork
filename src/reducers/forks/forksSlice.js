@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { BASE_API_URL } from '../../features/constants';
 
 export const getForks = createAsyncThunk('forks/getForks',
     async ({ owner, repoName, page = null }, { dispatch, getState }) => {
@@ -18,7 +19,7 @@ export const getForks = createAsyncThunk('forks/getForks',
 
         const params = new URLSearchParams({ page, owner, repoName })
 
-        const response = await fetch(`http://localhost:3000/forks${params ? '?' + params.toString() : ''}`, {
+        const response = await fetch(`${BASE_API_URL}/forks${params ? '?' + params.toString() : ''}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

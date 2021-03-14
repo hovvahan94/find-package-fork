@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && (cd server && npm install)",
     "eject": "react-scripts eject",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
     "server": "cd server && npm run dev"
