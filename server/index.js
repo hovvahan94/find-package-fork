@@ -8,8 +8,22 @@ const fetch = require('node-fetch');
 
 const app = express();
 
+const whitelist = ['http://localhost:3000', 'http://localhost:5000', 'https://find-package-fork.herokuapp.com​']
+const corsOptions = {
+    origin: function (origin, callback) {
+        console.log("** Origin of request " + origin)
+        if (whitelist.indexOf(origin) !== -1 || !origin) {
+            console.log("Origin acceptable")
+            callback(null, true)
+        } else {
+            console.log("Origin rejected")
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+
 app.use(morgan('tiny'));
-app.use(cors());
+app.use(cors(corsOptions));
 
 /* const buildPath = path.join(__dirname, '..', 'build');
 app.use(express.static(buildPath)); */
@@ -19,10 +33,10 @@ app.get("/forks", (req, res) => {
     const url = `https://api.github.com/repos/${req.query.owner}/${req.query.repoName}/forks`
     const params = new URLSearchParams({ page: req.query.page });
     fetch(`${url}${params ? '?' + params.toString() : ''}`)
-    .then(response => response.json())
-    .then(json => {
-        res.json(json);
-    })
+        .then(response => response.json())
+        .then(json => {
+            res.json(json);
+        })
 });
 
 function notFound(req, res, next) {
@@ -44,7 +58,7 @@ app.use(errorHandler);
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../build')))
 
-    app.get('*', function(req, res) {
+    app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../build', 'index.html'))
     })
 }
@@ -54,5 +68,5 @@ if (process.env.NODE_ENV === 'production') {
 // server started
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-    console.log("server started at port 5000");
+    console.log(`server started at port ${port}`);
 });
