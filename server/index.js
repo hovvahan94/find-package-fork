@@ -25,9 +25,6 @@ const corsOptions = {
 app.use(morgan('tiny'));
 app.use(cors(corsOptions));
 
-/* const buildPath = path.join(__dirname, '..', 'build');
-app.use(express.static(buildPath)); */
-
 // routes
 app.get("/forks", (req, res) => {
     const url = `https://api.github.com/repos/${req.query.owner}/${req.query.repoName}/forks`
