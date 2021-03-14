@@ -24,7 +24,7 @@ app.get("/forks", (req, res) => {
 
 function notFound(req, res, next) {
     res.status(404);
-    const error = new Error('Not Found');
+    const error = new Error('Not Found babam');
     next(error);
 }
 
